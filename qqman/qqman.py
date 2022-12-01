@@ -24,7 +24,7 @@ def manhattan(
     col_bp="BP",
     col_p="P",
     col_snp="SNP",
-    s=5,
+    point_size=5,
     show=False,
     title=False,
     xtick_size=10,
@@ -130,7 +130,7 @@ def manhattan(
         log_p = df_assoc[df_assoc[col_chr] == cChr]["LOG_P"]
 
         ax.scatter(
-            ind, log_p, marker=".", color=list_color[i % cmap_var], **kwargs
+            ind, log_p, marker=".", s=point_size, color=list_color[i % cmap_var], **kwargs
         )
         x_ticks.append(ind.iloc[0] + (ind.iloc[-1] - ind.iloc[0]) / 2)
         x_labels.append(cChr)
