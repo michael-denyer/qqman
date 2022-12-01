@@ -1,6 +1,6 @@
 <h1 style="text-align:center">qqman for Python</h1>
 
-![Install with pypi or anaconda](https://img.shields.io/badge/version-v1.0.6-green)
+![Install with pypi or anaconda](https://img.shields.io/badge/version-v1.0.7-green)
 
 If you want to check out the source code or have any issues please leave a comment at my [github](https://github.com/satchellhong/qqman) repository. <br>
 This library is inspired by r-qqman (see [here](https://github.com/stephenturner/qqman)). <br>
@@ -200,6 +200,10 @@ types: [string, pandas.DataFrame, numpy.array, list]
 <tr>
 <th><code>out</code> : string<br>( optional )</th>
 <th>Output path and file name of the plot. (ie. out="./Manhattan.png")</th>
+</tr>
+<tr>
+<th><code>s</code> : int<br>( optional )</th>
+<th>The size of the scatter graph points (default s=5).</th>
 </tr>
 <tr>
 <th><code>show</code> : bool<br>( optional )</th>
