@@ -202,7 +202,7 @@ types: [string, pandas.DataFrame, numpy.array, list]
 <th>Output path and file name of the plot. (ie. out="./Manhattan.png")</th>
 </tr>
 <tr>
-<th><code>s</code> : int<br>( optional )</th>
+<th><code>point_size</code> : int<br>( optional )</th>
 <th>The size of the scatter graph points (default s=5).</th>
 </tr>
 <tr>
