@@ -24,7 +24,7 @@ def manhattan(
     col_bp="BP",
     col_p="P",
     col_snp="SNP",
-    point_size=5,
+    point_size=8,
     show=False,
     title=False,
     xtick_size=10,
