@@ -9,7 +9,7 @@ def ppoints(n, a=None):
     https://docs.tibco.com/pub/enterprise-runtime-for-R/5.0.0/doc/html/Language_Reference/stats/ppoints.html
     :param n: array type or number"""
 
-    n = np.float(n) if isinstance(n, numbers.Number) else np.float(len(n))
+    n = np.float64(n) if isinstance(n, numbers.Number) else np.float64(len(n))
     if a is None:
         a = 0.375 if n <= 10 else 0.5
 
