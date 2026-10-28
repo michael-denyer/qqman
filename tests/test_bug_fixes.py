@@ -89,3 +89,13 @@ def test_qqplot_point_color_can_be_overridden(kwargs):
     np.testing.assert_array_equal(
         ax.collections[0].get_facecolor(), [matplotlib.colors.to_rgba("blue")]
     )
+
+
+def test_manhattan_warns_about_p_values_it_cannot_plot(capsys):
+    df = make_assoc([1, 2])
+    df.loc[[3, 7], "P"] = 0.0
+    fig, ax = plt.subplots()
+
+    qqman.manhattan(df, ax=ax)
+
+    assert "2 SNPs with P <= 0" in capsys.readouterr().out

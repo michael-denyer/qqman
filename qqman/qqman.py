@@ -101,6 +101,12 @@ def manhattan(
     df_assoc[col_chr] = df_assoc[col_chr].astype("category")
     df_assoc[col_bp] = df_assoc[col_bp].astype(int)
     df_assoc[col_p] = df_assoc[col_p].astype(float)
+    n_unplottable = int((df_assoc[col_p] <= 0).sum())
+    if n_unplottable:
+        print(
+            "[WARNING]: {0} SNPs with P <= 0 can't be shown on a -log10 scale "
+            "and are left out of the plot.".format(n_unplottable)
+        )
     df_assoc = df_assoc.sort_values([col_chr, col_bp])
 
     chr_len = [
@@ -117,7 +123,8 @@ def manhattan(
         ]
 
     df_assoc["IND"] = list_ind
-    df_assoc["LOG_P"] = -np.log10(df_assoc[col_p])
+    with np.errstate(divide="ignore", invalid="ignore"):
+        df_assoc["LOG_P"] = -np.log10(df_assoc[col_p])
 
     if is_ax:
         fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(12, 12))
