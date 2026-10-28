@@ -78,3 +78,14 @@ def test_qqplot_without_valid_p_values_raises_clear_error():
 
     with pytest.raises(Exception, match="No p-values between 0 and 1"):
         qqman.qqplot([0.0, 1.0, np.nan], ax=ax)
+
+
+@pytest.mark.parametrize("kwargs", [{"color": "blue"}, {"c": "blue"}])
+def test_qqplot_point_color_can_be_overridden(kwargs):
+    fig, ax = plt.subplots()
+
+    qqman.qqplot(make_assoc([1]), ax=ax, **kwargs)
+
+    np.testing.assert_array_equal(
+        ax.collections[0].get_facecolor(), [matplotlib.colors.to_rgba("blue")]
+    )

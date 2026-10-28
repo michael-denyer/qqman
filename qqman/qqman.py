@@ -229,7 +229,9 @@ def qqplot(
     else:
         fig = ax.figure
 
-    ax.scatter(expected, observed, c="k", **kwargs)
+    if "color" not in kwargs:
+        kwargs.setdefault("c", "k")
+    ax.scatter(expected, observed, **kwargs)
 
     xlim_min = np.nanmin(expected) - x_padding
     xlim_max = np.nanmax(expected) + x_padding
