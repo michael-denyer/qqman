@@ -71,3 +71,10 @@ def test_out_without_extension_in_dotted_directory_saves_png(plot, tmp_path):
     plot(make_assoc([1, 2]), out=str(out))
 
     assert out.read_bytes().startswith(b"\x89PNG")
+
+
+def test_qqplot_without_valid_p_values_raises_clear_error():
+    fig, ax = plt.subplots()
+
+    with pytest.raises(Exception, match="No p-values between 0 and 1"):
+        qqman.qqplot([0.0, 1.0, np.nan], ax=ax)

@@ -215,6 +215,9 @@ def qqplot(
     else:
         p_vals = [ele for ele in assoc if 0 < ele < 1]
 
+    if len(p_vals) == 0:
+        raise Exception("[ERROR]: No p-values between 0 and 1 to plot.")
+
     observed = -np.log10(np.sort(np.array(p_vals)))
     expected = -np.log10(ppoints(len(p_vals)))
 
