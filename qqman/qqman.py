@@ -83,7 +83,7 @@ def manhattan(
     if isinstance(assoc, str):
         df_assoc = pd.read_csv(assoc, header=0, sep=r"\s+")
     elif isinstance(assoc, pd.DataFrame):
-        df_assoc = assoc
+        df_assoc = assoc.copy()
     else:
         raise Exception(
             "[ERROR]: assoc must be either string(path) or pandas.DataFrame."
