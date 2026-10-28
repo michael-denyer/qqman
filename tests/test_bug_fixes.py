@@ -61,3 +61,13 @@ def test_manhattan_accepts_cmap_var_above_colormap_size(cmap, cmap_var):
     qqman.manhattan(make_assoc([1, 2, 3]), ax=ax, cmap=cmap, cmap_var=cmap_var)
 
     assert len(ax.collections) == 3
+
+
+@pytest.mark.parametrize("plot", [qqman.manhattan, qqman.qqplot])
+def test_out_without_extension_in_dotted_directory_saves_png(plot, tmp_path):
+    out = tmp_path / "plots.v2" / "figure"
+    out.parent.mkdir()
+
+    plot(make_assoc([1, 2]), out=str(out))
+
+    assert out.read_bytes().startswith(b"\x89PNG")
