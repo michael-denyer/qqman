@@ -174,7 +174,7 @@ def manhattan(
     if out:
         out_str = os.fspath(out)
         fmt = out_str.rsplit(".", 1)[-1] if "." in out_str else "png"
-        plt.savefig(out, format=fmt)
+        fig.savefig(out, format=fmt)
 
     if is_ax:
         plt.clf()
@@ -257,7 +257,7 @@ def qqplot(
     if out:
         out_str = os.fspath(out)
         fmt = out_str.rsplit(".", 1)[-1] if "." in out_str else "png"
-        plt.savefig(out, format=fmt)
+        fig.savefig(out, format=fmt)
 
     if is_ax:
         plt.clf()

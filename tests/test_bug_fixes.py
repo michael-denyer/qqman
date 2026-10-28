@@ -37,3 +37,16 @@ def test_manhattan_leaves_input_dataframe_unchanged():
     qqman.manhattan(df, ax=ax)
 
     pd.testing.assert_frame_equal(df, before)
+
+
+@pytest.mark.parametrize("plot", [qqman.manhattan, qqman.qqplot])
+def test_out_saves_the_figure_that_owns_ax(plot, tmp_path):
+    fig, ax = plt.subplots()
+    plt.subplots()  # a second, empty figure becomes pyplot's current figure
+
+    plot(make_assoc([1, 2]), ax=ax, out=tmp_path / "plot.png")
+
+    fig.savefig(tmp_path / "expected.png")
+    np.testing.assert_array_equal(
+        plt.imread(tmp_path / "plot.png"), plt.imread(tmp_path / "expected.png")
+    )
