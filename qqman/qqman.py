@@ -14,6 +14,17 @@ from matplotlib import colors
 from .biostats import ppoints
 
 
+def _chromosome_sort_key(label):
+    """Order numeric chromosomes by value, then the rest (X, Y, MT) by name."""
+    name = str(label)
+    if name.lower().startswith("chr"):
+        name = name[3:]
+    try:
+        return (0, float(name), "")
+    except ValueError:
+        return (1, 0.0, name)
+
+
 def manhattan(
     assoc,
     out=False,
@@ -98,7 +109,9 @@ def manhattan(
     if col_snp not in df_assoc.columns:
         print("[WARNING]: Column '{0}' not found!".format(col_snp))
 
-    df_assoc[col_chr] = df_assoc[col_chr].astype("category")
+    if not isinstance(df_assoc[col_chr].dtype, pd.CategoricalDtype):
+        chroms = sorted(df_assoc[col_chr].dropna().unique(), key=_chromosome_sort_key)
+        df_assoc[col_chr] = pd.Categorical(df_assoc[col_chr], categories=chroms)
     df_assoc[col_bp] = df_assoc[col_bp].astype(int)
     df_assoc[col_p] = df_assoc[col_p].astype(float)
     n_unplottable = int((df_assoc[col_p] <= 0).sum())

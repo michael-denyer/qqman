@@ -99,3 +99,31 @@ def test_manhattan_warns_about_p_values_it_cannot_plot(capsys):
     qqman.manhattan(df, ax=ax)
 
     assert "2 SNPs with P <= 0" in capsys.readouterr().out
+
+
+@pytest.mark.parametrize(
+    "chroms, labels",
+    [
+        ([3, 1, 2], ["1", "2", "3"]),
+        (["2", "X", "10", "1", "MT", "23"], ["1", "2", "10", "23", "MT", "X"]),
+        (["chr2", "chrX", "chr10", "chr1"], ["chr1", "chr2", "chr10", "chrX"]),
+    ],
+)
+def test_manhattan_orders_chromosomes_numerically(chroms, labels, tmp_path):
+    path = tmp_path / "assoc.txt"
+    make_assoc(chroms).to_csv(path, sep=" ", index=False)
+    fig, ax = plt.subplots()
+
+    qqman.manhattan(str(path), ax=ax)
+
+    assert [t.get_text() for t in ax.get_xticklabels()] == labels
+
+
+def test_manhattan_keeps_a_categorical_chromosome_order():
+    df = make_assoc(["1", "2", "X"])
+    df["CHR"] = pd.Categorical(df["CHR"], categories=["X", "2", "1"])
+    fig, ax = plt.subplots()
+
+    qqman.manhattan(df, ax=ax)
+
+    assert [t.get_text() for t in ax.get_xticklabels()] == ["X", "2", "1"]
