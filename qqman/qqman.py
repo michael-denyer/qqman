@@ -126,7 +126,7 @@ def manhattan(
         len(df_assoc[df_assoc[col_chr] == cChr]) for cChr in df_assoc[col_chr].unique()
     ]
 
-    weight_gap = int(min(chr_len) / 100)
+    weight_gap = max(1, int(min(chr_len) / 100))
 
     list_ind = []
     for cChr in df_assoc[col_chr].unique():

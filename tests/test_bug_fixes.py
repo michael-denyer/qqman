@@ -127,3 +127,12 @@ def test_manhattan_keeps_a_categorical_chromosome_order():
     qqman.manhattan(df, ax=ax)
 
     assert [t.get_text() for t in ax.get_xticklabels()] == ["X", "2", "1"]
+
+
+def test_manhattan_gap_applies_to_small_chromosomes():
+    fig, ax = plt.subplots()
+
+    qqman.manhattan(make_assoc([1, 2], per_chrom=50), ax=ax, gap=10)
+
+    chr1, chr2 = (c.get_offsets()[:, 0] for c in ax.collections)
+    assert chr2[0] - chr1[-1] == 11
