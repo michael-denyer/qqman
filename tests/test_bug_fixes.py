@@ -50,3 +50,14 @@ def test_out_saves_the_figure_that_owns_ax(plot, tmp_path):
     np.testing.assert_array_equal(
         plt.imread(tmp_path / "plot.png"), plt.imread(tmp_path / "expected.png")
     )
+
+
+@pytest.mark.parametrize(
+    "cmap, cmap_var", [(plt.get_cmap("Set1"), 10), (plt.get_cmap("viridis"), 300)]
+)
+def test_manhattan_accepts_cmap_var_above_colormap_size(cmap, cmap_var):
+    fig, ax = plt.subplots()
+
+    qqman.manhattan(make_assoc([1, 2, 3]), ax=ax, cmap=cmap, cmap_var=cmap_var)
+
+    assert len(ax.collections) == 3

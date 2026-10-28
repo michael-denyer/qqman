@@ -46,7 +46,7 @@ def manhattan(
     if cmap:
         try:
             if isinstance(cmap_var, numbers.Number):
-                step = int(len(cmap.colors) / cmap_var)
+                step = max(1, int(len(cmap.colors) / cmap_var))
 
                 for i, color in enumerate(cmap.colors):
                     if i % step == 0:
@@ -56,7 +56,7 @@ def manhattan(
 
         except AttributeError:
             if isinstance(cmap_var, numbers.Number):
-                step = int(256 / cmap_var)
+                step = max(1, int(256 / cmap_var))
 
                 for i in range(256):
                     if i % step == 0:
@@ -69,7 +69,7 @@ def manhattan(
             if cmap_var == 2:
                 list_color = [colors.to_hex(cmap(0)[:3]), colors.to_hex(cmap(80)[:3])]
             else:
-                step = int(256 / cmap_var)
+                step = max(1, int(256 / cmap_var))
 
                 for i in range(256):
                     if i % step == 0:
